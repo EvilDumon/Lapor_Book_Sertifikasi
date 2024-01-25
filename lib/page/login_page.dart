@@ -13,12 +13,12 @@ class LoginPage extends StatefulWidget {
 
 class LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
-
   final _auth = FirebaseAuth.instance;
   bool _isLoading = false;
 
   String? email;
   String? password;
+
   void login() async {
     setState(() {
       _isLoading = true;
@@ -77,7 +77,7 @@ class LoginPageState extends State<LoginPage> {
                                           }),
                                       validator: notEmptyValidator,
                                       decoration: customInputDecoration(
-                                          "email@email.com"))),
+                                          "example@gmail.com"))),
                               InputLayout(
                                   'Password',
                                   TextFormField(

@@ -1,17 +1,16 @@
-import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:lapor_book_sertifikasi/components/styles.dart';
-import 'package:lapor_book_sertifikasi/components/vars.dart';
 import 'package:lapor_book_sertifikasi/models/akun.dart';
 import 'package:lapor_book_sertifikasi/models/laporan.dart';
 
 class ListItem extends StatefulWidget {
+  final Laporan laporan;
   final Akun akun;
   final bool isLaporanku;
-  final Laporan laporan;
-  const ListItem(
+  ListItem(
       {super.key,
       required this.laporan,
       required this.akun,
@@ -22,17 +21,18 @@ class ListItem extends StatefulWidget {
 }
 
 class _ListItemState extends State<ListItem> {
-  final _storage = FirebaseStorage.instance;
   final _firestore = FirebaseFirestore.instance;
+  final _storage = FirebaseStorage.instance;
 
   void deleteLaporan() async {
     try {
       await _firestore.collection('laporan').doc(widget.laporan.docId).delete();
 
+      // menghapus gambar dari storage
       if (widget.laporan.foto != '') {
         await _storage.refFromURL(widget.laporan.foto!).delete();
       }
-      if (context.mounted) Navigator.popAndPushNamed(context, '/dashboard');
+      Navigator.popAndPushNamed(context, '/dashboard');
     } catch (e) {
       print(e);
     }
@@ -63,13 +63,13 @@ class _ListItemState extends State<ListItem> {
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        child: const Text('Batal'),
+                        child: Text('Batal'),
                       ),
                       TextButton(
                         onPressed: () {
                           deleteLaporan();
                         },
-                        child: const Text('Hapus'),
+                        child: Text('Hapus'),
                       ),
                     ],
                   );
@@ -106,11 +106,7 @@ class _ListItemState extends State<ListItem> {
                   child: Container(
                     padding: const EdgeInsets.symmetric(vertical: 8),
                     decoration: BoxDecoration(
-                        color: widget.laporan.status == dataStatus[0]
-                            ? warnaStatus[0]
-                            : widget.laporan.status == dataStatus[1]
-                                ? warnaStatus[1]
-                                : warnaStatus[2],
+                        color: warningColor,
                         borderRadius: const BorderRadius.only(
                           bottomLeft: Radius.circular(5),
                         ),
@@ -138,7 +134,7 @@ class _ListItemState extends State<ListItem> {
                       style: headerStyle(level: 5, dark: false),
                     ),
                   ),
-                ),
+                )
               ],
             )
           ],

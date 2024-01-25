@@ -40,7 +40,7 @@ class _RegisterPageState extends State<RegisterPage> {
         'email': email,
         'noHP': noHP,
         'docId': docId,
-        'role': 'user',
+        'role': 'masyarakat',
       });
 
       if (context.mounted) {

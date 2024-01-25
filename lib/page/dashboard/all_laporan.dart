@@ -1,6 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lapor_book_sertifikasi/components/list_item.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:lapor_book_sertifikasi/models/akun.dart';
 import 'package:lapor_book_sertifikasi/models/laporan.dart';
 
@@ -13,8 +13,8 @@ class AllLaporan extends StatefulWidget {
 }
 
 class _AllLaporanState extends State<AllLaporan> {
-  List<Laporan> listLaporan = [];
   final _firestore = FirebaseFirestore.instance;
+  List<Laporan> listLaporan = [];
 
   void getTransaksi() async {
     try {
@@ -24,14 +24,13 @@ class _AllLaporanState extends State<AllLaporan> {
       setState(() {
         listLaporan.clear();
         for (var documents in querySnapshot.docs) {
-          List<dynamic>? komentarData = documents.data()['komentar'];
+          List<dynamic>? komentarData = documents.data()['comments'];
 
-          List<Komentar>? listKomentar = komentarData?.map((map) {
+          List<Komentar>? listKomentar = komentarData?.map((data) {
             return Komentar(
-              uid: map['uid'],
-              name: map['name'],
-              komentar: map['komentar'],
-            );
+                uid: data['uid'],
+                name: data['name'],
+                komentar: data['comment']);
           }).toList();
 
           listLaporan.add(

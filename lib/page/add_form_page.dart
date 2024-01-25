@@ -123,12 +123,41 @@ class AddFormState extends State<AddFormPage> {
     }
   }
 
-  Future<dynamic> openCamera(BuildContext context) async {
-    XFile? upload = await picker.pickImage(source: ImageSource.camera);
+  Future<dynamic> uploadDialog(BuildContext context) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext) {
+          return AlertDialog(
+            title: const Text('Pilih sumber '),
+            actions: [
+              TextButton(
+                onPressed: () async {
+                  XFile? upload =
+                      await picker.pickImage(source: ImageSource.camera);
 
-    setState(() {
-      file = upload;
-    });
+                  setState(() {
+                    file = upload;
+                  });
+
+                  if (context.mounted) Navigator.of(context).pop();
+                },
+                child: const Icon(Icons.camera_alt),
+              ),
+              TextButton(
+                onPressed: () async {
+                  XFile? upload =
+                      await picker.pickImage(source: ImageSource.gallery);
+                  setState(() {
+                    file = upload;
+                  });
+
+                  if (context.mounted) Navigator.of(context).pop();
+                },
+                child: const Icon(Icons.photo_library),
+              ),
+            ],
+          );
+        });
   }
 
   @override
@@ -173,7 +202,7 @@ class AddFormState extends State<AddFormPage> {
                           margin: const EdgeInsets.only(bottom: 10),
                           child: ElevatedButton(
                               onPressed: () {
-                                openCamera(context);
+                                uploadDialog(context);
                               },
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,

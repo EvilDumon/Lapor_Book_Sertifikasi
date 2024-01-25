@@ -42,7 +42,7 @@ class _SplashPage extends State<SplashFull> {
     return const MaterialApp(
         home: Scaffold(
       body: Center(
-        child: Text('Selamat datang di Aplikasi Laporan'),
+        child: Icon(Icons.announcement_rounded, size: 150),
       ),
     ));
   }

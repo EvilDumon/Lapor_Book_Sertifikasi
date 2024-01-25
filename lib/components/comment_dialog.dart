@@ -4,6 +4,7 @@ import 'package:lapor_book_sertifikasi/components/input_widget.dart';
 import 'package:lapor_book_sertifikasi/components/styles.dart';
 import 'package:lapor_book_sertifikasi/models/akun.dart';
 import 'package:lapor_book_sertifikasi/models/laporan.dart';
+import 'package:lapor_book_sertifikasi/page/detail_page.dart';
 
 class CommentDialog extends StatefulWidget {
   final Laporan laporan;
@@ -27,7 +28,9 @@ class _CommentDialogState extends State<CommentDialog> {
           {'uid': akun.uid, 'name': akun.fullname, 'comment': komentar}
         ]),
       });
-      if (context.mounted) Navigator.pop(context);
+      if (context.mounted) {
+        Navigator.pop(context);
+      }
     } catch (e) {
       print(e);
     }
@@ -53,7 +56,7 @@ class _CommentDialogState extends State<CommentDialog> {
             ),
             const SizedBox(height: 20),
             Container(
-              padding: EdgeInsets.all(20),
+              padding: const EdgeInsets.all(20),
               child: TextFormField(
                 onChanged: (String value) => setState(() {
                   komentar = value;

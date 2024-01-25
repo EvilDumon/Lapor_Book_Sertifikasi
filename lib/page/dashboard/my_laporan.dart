@@ -14,9 +14,9 @@ class MyLaporan extends StatefulWidget {
 }
 
 class _MyLaporanState extends State<MyLaporan> {
-  List<Laporan> listLaporan = [];
   final _auth = FirebaseAuth.instance;
   final _firestore = FirebaseFirestore.instance;
+  List<Laporan> listLaporan = [];
 
   void getTransaksi() async {
     try {
@@ -28,14 +28,13 @@ class _MyLaporanState extends State<MyLaporan> {
       setState(() {
         listLaporan.clear();
         for (var documents in querySnapshot.docs) {
-          List<dynamic>? komentarData = documents.data()['komentar'];
+          List<dynamic>? komentarData = documents.data()['comments'];
 
-          List<Komentar>? listKomentar = komentarData?.map((map) {
+          List<Komentar>? listKomentar = komentarData?.map((data) {
             return Komentar(
-              uid: map['uid'],
-              name: map['name'],
-              komentar: map['komentar'],
-            );
+                uid: data['uid'],
+                name: data['name'],
+                komentar: data['comment']);
           }).toList();
 
           listLaporan.add(
@@ -56,6 +55,8 @@ class _MyLaporanState extends State<MyLaporan> {
         }
       });
     } catch (e) {
+      final snackbar = SnackBar(content: Text(e.toString()));
+      ScaffoldMessenger.of(context).showSnackBar(snackbar);
       print(e);
     }
   }
