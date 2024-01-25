@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "411678108445",
+    "project_id": "laporbooksertifikasi",
+    "storage_bucket": "laporbooksertifikasi.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:411678108445:android:a7c79b5b9553ddb0798ff4",
+        "android_client_info": {
+          "package_name": "com.example.lapor_book_sertifikasi"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD71wP28zIxD3m4t_9SPypA8GBWK9u5OKw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
